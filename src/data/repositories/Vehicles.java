@@ -50,7 +50,8 @@ public class Vehicles implements VehicleRepositories{
     @Override
     public void deleteById(int id) {
         for(int count = 0; count < vehicles.size(); count++){
-            if(vehicles.get(count).getId() == id){
+            Vehicle vehicle = vehicles.get(count);
+            if(vehicle.getId() == id){
                 vehicles.remove(count);
                 return;
             }
