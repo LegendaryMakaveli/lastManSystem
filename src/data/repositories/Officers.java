@@ -21,8 +21,9 @@ public class Officers implements OfficerRepositories{
     @Override
     public Officer findById(int id) {
         for(int count = 0; count < officers.size(); count++) {
-            if (officers.get(count).getId() == id) {
-                return officers.get(count);
+            Officer officer = officers.get(count);
+            if (officer.getId() == id) {
+                return officer;
             }
         }
         throw new IdNotFoundException("Id not found");
