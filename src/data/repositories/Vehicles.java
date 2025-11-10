@@ -28,7 +28,13 @@ public class Vehicles implements VehicleRepositories{
 
     @Override
     public Vehicle findById(int id) {
-        return vehicles.get(id);
+        for(int count = 0; count < vehicles.size(); count++){
+            Vehicle vehicle = vehicles.get(count);
+            if(vehicle.getId() == id){
+                return vehicle;
+            }
+        }
+        throw new IdNotFoundException("Vehicle with id " + id + " not found");
     }
 
     @Override
