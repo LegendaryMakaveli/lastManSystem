@@ -1,6 +1,5 @@
 package data.repositories;
 
-import data.models.Officer;
 import data.models.Vehicle;
 import exceptions.IdNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
