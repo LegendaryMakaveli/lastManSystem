@@ -1,19 +1,17 @@
 package data.models;
 
 public class Officer {
-   private int id;
+   private String id;
    private String name;
    private String rank;
 
-public Officer(int id){
-    this.id=id;
-}
+public Officer(){}
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
