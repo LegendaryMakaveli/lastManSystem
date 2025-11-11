@@ -3,24 +3,22 @@ package data.models;
 import java.time.LocalDateTime;
 
 public class Ticket {
-    private int id;
+    private String id;
     private Vehicle vehicle;
     private Offense offense;
     private boolean hasPaid;
     private LocalDateTime dateOfBooking = LocalDateTime.now();
     private LocalDateTime dateOfPaymant;
 
-    public Ticket(int id){
-        this.id = id;
-    }
+    public Ticket(){}
 
 
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
