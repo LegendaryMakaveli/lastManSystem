@@ -6,9 +6,10 @@ import java.util.List;
 
 public interface VehicleRepositories {
     Vehicle save(Vehicle vehicle);
-    Vehicle findById(int id);
+    Vehicle findById(String id);
+    Vehicle findByChasisNumber(String chasisNumber);
     List<Vehicle> findAll();
-    void deleteById(int id);
+    void deleteById(String id);
     int getSize();
     void deleteAll();
     Vehicle delete(Vehicle vehicle);
