@@ -5,28 +5,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Vehicle {
-    private int id;
+    private String id;
     private String name;
     private String model;
     private String colour;
     private Year year;
+    private String chasisNumber;
     private String plateNumber;
     private Owner owner;
     private List<Ticket> tickets;
 
-    public Vehicle(int id, String name, String model, String colour) {
-        this.id = id;
+
+
+
+    public String getChasisNumber() {
+        return chasisNumber;
+    }
+
+    public void setChasisNumber(String chasisNumber) {
+        this.chasisNumber = chasisNumber;
+    }
+
+    public Vehicle(String name, String model, String colour) {
         this.name = name;
         this.model = model;
         this.colour = colour;
         tickets = new ArrayList<>();
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
