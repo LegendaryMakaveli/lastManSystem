@@ -1,6 +1,6 @@
 package exceptions;
 
-public class IdNotFoundException extends RuntimeException {
+public class IdNotFoundException extends LastManException{
     public IdNotFoundException(String message) {
         super(message);
     }
