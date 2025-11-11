@@ -1,6 +1,6 @@
 package exceptions;
 
-public class InvalidObject extends RuntimeException {
+public class InvalidObject extends LastManException{
     public InvalidObject(String message) {
         super(message);
     }
