@@ -24,7 +24,7 @@ class TicketsTest {
     @Test
     public void saveANewTicketAndIsNotEmpty() {
         assertEquals(0, ticket.count());
-        Ticket newTicket = new Ticket(0);
+        Ticket newTicket = new Ticket();
         ticket.save(newTicket);
 
         assertEquals(1, ticket.count());
@@ -32,8 +32,8 @@ class TicketsTest {
 
     @Test
     public void saveTwoTicketsInAListAndListIsNotEmpty() {
-        Ticket ticket1 = new Ticket(0);
-        Ticket ticket2 = new Ticket(1);
+        Ticket ticket1 = new Ticket();
+        Ticket ticket2 = new Ticket();
         ticket.save(ticket1);
         ticket.save(ticket2);
 
@@ -42,30 +42,30 @@ class TicketsTest {
 
     @Test
     public void saveTwoTicketAndFindOneById() {
-        Ticket ticket1 = new Ticket(0);
+        Ticket ticket1 = new Ticket();
         ticket.save(ticket1);
-        Ticket ticket2 = new Ticket(1);
+        Ticket ticket2 = new Ticket();
         ticket.save(ticket2);
 
-        Ticket result = ticket.findById(1);
+        Ticket result = ticket.findById(ticket2.getId());
         assertEquals(result, ticket2);
     }
 
     @Test
     public void testThatWhenTicketIsSearchWithInvalidId_ExceptionIThrown(){
-        Ticket newTicket = new Ticket(0);
+        Ticket newTicket = new Ticket();
         ticket.save(newTicket);
 
-        assertThrows(IdNotFoundException.class, () -> ticket.findById(1));
+        assertThrows(IdNotFoundException.class, () -> ticket.findById("Dan09"));
     }
 
     @Test
     public void findAllTicketInMyList() {
-        Ticket ticket1 = new Ticket(0);
+        Ticket ticket1 = new Ticket();
         ticket.save(ticket1);
-        Ticket ticket2 = new Ticket(1);
+        Ticket ticket2 = new Ticket();
         ticket.save(ticket2);
-        Ticket ticket3 = new  Ticket(2);
+        Ticket ticket3 = new  Ticket();
         ticket.save(ticket3);
 
         List<Ticket> found = ticket.findAll();
@@ -78,27 +78,27 @@ class TicketsTest {
 
     @Test
     public void deleteATicketById() {
-        Ticket ticket1 = new Ticket(0);
+        Ticket ticket1 = new Ticket();
         ticket.save(ticket1);
-        Ticket ticket2 = new Ticket(1);
+        Ticket ticket2 = new Ticket();
         ticket.save(ticket2);
         assertEquals(2, ticket.getSize());
-        ticket.deleteById(1);
+        ticket.deleteById(ticket1.getId());
         assertEquals(1, ticket.getSize());
     }
     @Test
     public void testThatWhenTicketIsDeletedWithInvalidId_ExceptionIThrown(){
-        Ticket newTicket = new Ticket(0);
+        Ticket newTicket = new Ticket();
         ticket.save(newTicket);
 
-        assertThrows(IdNotFoundException.class, () -> ticket.deleteById(1));
+        assertThrows(IdNotFoundException.class, () -> ticket.deleteById("Dan07"));
     }
 
     @Test
     public void getTotalSizeOfMyLIst() {
-        Ticket ticket1 = new Ticket(0);
+        Ticket ticket1 = new Ticket();
         ticket.save(ticket1);
-        Ticket ticket2 = new Ticket(1);
+        Ticket ticket2 = new Ticket();
         ticket.save(ticket2);
 
         assertEquals(2, ticket.getSize());
@@ -106,11 +106,11 @@ class TicketsTest {
 
     @Test
     public void deleteAllTicketInMyList() {
-        Ticket ticket1 = new Ticket(0);
+        Ticket ticket1 = new Ticket();
         ticket.save(ticket1);
-        Ticket ticket2 = new Ticket(1);
+        Ticket ticket2 = new Ticket();
         ticket.save(ticket2);
-        Ticket ticket3 = new  Ticket(2);
+        Ticket ticket3 = new  Ticket();
         ticket.save(ticket3);
         assertEquals(3, ticket.getSize());
         ticket.deleteAll();
@@ -119,7 +119,7 @@ class TicketsTest {
 
     @Test
     public void deleteATicketObject() {
-        Ticket ticket1 = new Ticket(0);
+        Ticket ticket1 = new Ticket();
         Ticket result = ticket.save(ticket1);
         assertEquals(1, ticket.getSize());
         ticket.delete(result);
@@ -128,11 +128,11 @@ class TicketsTest {
 
     @Test
     public void getTheTotalCountOfTicketInMyRepositories() {
-        Ticket ticket1 = new Ticket(0);
+        Ticket ticket1 = new Ticket();
         ticket.save(ticket1);
-        Ticket ticket2 = new Ticket(1);
+        Ticket ticket2 = new Ticket();
         ticket.save(ticket2);
-        Ticket ticket3 = new  Ticket(2);
+        Ticket ticket3 = new  Ticket();
         ticket.save(ticket3);
         assertEquals(3, ticket.count());
     }

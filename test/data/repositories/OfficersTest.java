@@ -25,7 +25,7 @@ class OfficersTest {
     @Test
     public void testThatOneOfficerIsSavedAndIsNotEmpty(){
         assertEquals(0, officer.count());
-        Officer newOfficer = new Officer(0);
+        Officer newOfficer = new Officer();
         officer.save(newOfficer);
         assertEquals(1, officer.count());
     }
@@ -39,18 +39,18 @@ class OfficersTest {
     @Test
     public void saveOneOfficerIntoTheListAndListIsNotEmpty() {
         assertEquals(0, officer.getSize());
-        Officer newOfficer = new Officer(0);
+        Officer newOfficer = new Officer();
         officer.save(newOfficer);
-        Officer secondOfficer = new  Officer(1);
+        Officer secondOfficer = new  Officer();
         officer.save(secondOfficer);
         assertEquals(2, officer.getSize());
     }
 
     @Test
     public void saveTwoOfficerAndConfirmWhatWeSaveIsWhatWeGet() {
-        Officer newOfficer = new Officer(0);
+        Officer newOfficer = new Officer();
         Officer result = officer.save(newOfficer);
-        Officer secondOfficer = new  Officer(1);
+        Officer secondOfficer = new  Officer();
         Officer result2 = officer.save(secondOfficer);
         assertEquals(result, newOfficer);
         assertEquals(result2, secondOfficer);
@@ -58,12 +58,12 @@ class OfficersTest {
 
     @Test
     public void saveTwoOfficerAndFindThemById(){
-        Officer newOfficer = new Officer(0);
+        Officer newOfficer = new Officer();
         officer.save(newOfficer);
-        Officer secondOfficer = new  Officer(1);
+        Officer secondOfficer = new  Officer();
         officer.save(secondOfficer);
-        Officer result = officer.findById(0);
-        Officer result2 = officer.findById(1);
+        Officer result = officer.findById(newOfficer.getId());
+        Officer result2 = officer.findById(secondOfficer.getId());
 
         assertEquals(newOfficer, result);
         assertEquals(secondOfficer, result2);
@@ -72,17 +72,17 @@ class OfficersTest {
 
     @Test
     public void testThatWhenOfficerIsSearchWithInvalidId_ExceptionIThrown(){
-        Officer newOfficer = new Officer(0);
+        Officer newOfficer = new Officer();
         officer.save(newOfficer);
 
-        assertThrows(IdNotFoundException.class, () -> officer.findById(1));
+        assertThrows(IdNotFoundException.class, () -> officer.findById("Ofc99"));
     }
 
     @Test
     public void testThatFindAllOfficerInOfficerList() {
-        Officer newOfficer = new Officer(0);
+        Officer newOfficer = new Officer();
         officer.save(newOfficer);
-        Officer secondOfficer = new  Officer(1);
+        Officer secondOfficer = new  Officer();
         officer.save(secondOfficer);
 
         List<Officer> allOfficer = officer.findAll();
@@ -94,32 +94,32 @@ class OfficersTest {
 
     @Test
     public void testThatDeleteOfficerById() {
-        Officer newOfficer = new Officer(0);
+        Officer newOfficer = new Officer();
         officer.save(newOfficer);
-        Officer secondOfficer = new  Officer(1);
+        Officer secondOfficer = new  Officer();
         officer.save(secondOfficer);
 
         assertEquals(2, officer.getSize());
-        officer.deleteById(0);
+        officer.deleteById(newOfficer.getId());
         assertEquals(1, officer.getSize());
-        officer.deleteById(1);
+        officer.deleteById(secondOfficer.getId());
         assertEquals(0, officer.getSize());
     }
 
     @Test
     public void testThatWhenOfficerIsdWithDeleteWithIvalidId_ExceptionIThrown(){
-        Officer newOfficer = new Officer(0);
+        Officer newOfficer = new Officer();
         officer.save(newOfficer);
 
-        assertThrows(IdNotFoundException.class, () -> officer.deleteById(1));
+        assertThrows(IdNotFoundException.class, () -> officer.deleteById("Ofc 20"));
     }
 
 
     @Test
     public void getSizeOfTheOfficerList() {
-        Officer newOfficer = new Officer(0);
+        Officer newOfficer = new Officer();
         officer.save(newOfficer);
-        Officer secondOfficer = new  Officer(1);
+        Officer secondOfficer = new  Officer();
         officer.save(secondOfficer);
 
         assertEquals(2, officer.getSize());
@@ -127,9 +127,9 @@ class OfficersTest {
 
     @Test
     public void deleteAllOfficerInOfficerList() {
-        Officer newOfficer = new Officer(0);
+        Officer newOfficer = new Officer();
         officer.save(newOfficer);
-        Officer secondOfficer = new  Officer(1);
+        Officer secondOfficer = new  Officer();
         officer.save(secondOfficer);
         assertEquals(2, officer.getSize());
         officer.deleteAll();
@@ -138,9 +138,9 @@ class OfficersTest {
 
     @Test
     public void deleteAnOfficerObject() {
-        Officer newOfficer = new Officer(0);
+        Officer newOfficer = new Officer();
         officer.save(newOfficer);
-        Officer secondOfficer = new  Officer(1);
+        Officer secondOfficer = new  Officer();
         Officer result = officer.save(secondOfficer);
         assertEquals(2, officer.getSize());
         officer.delete(result);
@@ -149,9 +149,9 @@ class OfficersTest {
 
     @Test
     public void GetTheCountOfAllOfficerInRepository() {
-        Officer newOfficer = new Officer(0);
+        Officer newOfficer = new Officer();
         officer.save(newOfficer);
-        Officer secondOfficer = new  Officer(1);
+        Officer secondOfficer = new  Officer();
         officer.save(secondOfficer);
 
         assertEquals(2, officer.count());
