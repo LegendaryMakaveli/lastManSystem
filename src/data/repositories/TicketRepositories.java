@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface TicketRepositories {
     Ticket save(Ticket ticket);
-    Ticket findById(int id);
+    Ticket findById(String id);
     List<Ticket> findAll();
-    void deleteById(int id);
+    void deleteById(String id);
     int getSize();
     void deleteAll();
     Ticket delete(Ticket ticket);
