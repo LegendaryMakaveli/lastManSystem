@@ -4,22 +4,33 @@ import data.models.Ticket;
 import exceptions.IdNotFoundException;
 import exceptions.InvalidObject;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Tickets implements TicketRepositories {
-    private int count;
+    private static Random random = new Random();
+    private static  Set<String> usedIds = new HashSet<>();
     private List<Ticket> tickets = new ArrayList<>();
 
     @Override
     public Ticket save(Ticket ticket) {
-        tickets.add(ticket);
-        count++;
+        if(ticket.getId() == null){
+            String id = generateId();
+            ticket.setId(id);
+            tickets.add(ticket);
+        }else{
+            for(int index = 0; index < tickets.size(); index++){
+                if(tickets.get(index).getId().equals(ticket.getId())){
+                    tickets.set(index, ticket);
+                }
+            }
+        }
         return ticket;
     }
 
+
+
     @Override
-    public Ticket findById(int id) {
+    public Ticket findById(String id) {
         for(int count = 0; count < tickets.size(); count++){
             Ticket ticket = tickets.get(count);
             if(ticket.getId() == id){
@@ -40,7 +51,7 @@ public class Tickets implements TicketRepositories {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(String id) {
         for(int count = 0; count < tickets.size(); count++){
             if(tickets.get(count).getId() == id){
                 tickets.remove(count);
@@ -74,6 +85,17 @@ public class Tickets implements TicketRepositories {
 
     @Override
     public long count() {
-        return count;
+        return tickets.size();
+    }
+
+
+    private String generateId(){
+        String id;
+        do {
+            int number = random.nextInt(Integer.MAX_VALUE);
+            id = "Tic" + number;
+        } while (usedIds.contains(id));
+        usedIds.add(id);
+        return id;
     }
 }
