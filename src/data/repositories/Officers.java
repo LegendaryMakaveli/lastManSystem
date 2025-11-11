@@ -4,22 +4,31 @@ import data.models.Officer;
 import exceptions.IdNotFoundException;
 import exceptions.InvalidObject;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Officers implements OfficerRepositories{
-    private int count;
-    private List<Officer> officers = new ArrayList<>();
+    private static Random random = new Random();
+    private static Set<String> usedIds = new HashSet<>();
+    private static List<Officer> officers = new ArrayList<>();
 
     @Override
     public Officer save(Officer officer) {
-        officers.add(officer);
-        count++;
+        if(officer.getId() == null){
+            String officerId = generateId();
+            officer.setId(officerId);
+            officers.add(officer);
+        }else {
+            for(int index = 0; index < officers.size(); index++){
+                if(officers.get(index).getId().equals(officer.getId())){
+                    officers.set(index, officer);
+                }
+            }
+        }
         return officer;
     }
 
     @Override
-    public Officer findById(int id) {
+    public Officer findById(String id) {
         for(int count = 0; count < officers.size(); count++) {
             Officer officer = officers.get(count);
             if (officer.getId() == id) {
@@ -40,7 +49,7 @@ public class Officers implements OfficerRepositories{
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(String id) {
         for(int count = 0; count < officers.size(); count++){
             if(officers.get(count).getId() == id){
                 officers.remove(count);
@@ -74,6 +83,16 @@ public class Officers implements OfficerRepositories{
 
     @Override
     public long count() {
-        return count;
+        return officers.size();
+    }
+
+    private String generateId(){
+        String id;
+        do {
+            int number = random.nextInt(Integer.MAX_VALUE);
+            id = "Ofc" + number;
+        } while (usedIds.contains(id));
+        usedIds.add(id);
+        return id;
     }
 }
