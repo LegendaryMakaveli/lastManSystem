@@ -1,19 +1,30 @@
 package data.repositories;
 
 import data.models.Vehicle;
+import dtos.requests.RegisterVehicleRequest;
 import exceptions.IdNotFoundException;
+import exceptions.VehicleNotFoundException;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Vehicles implements VehicleRepositories{
-    private int count;
-    private List<Vehicle> vehicles = new ArrayList<>();
+    private static Random random =  new Random();
+    private static List<Vehicle> vehicles = new ArrayList<>();
+    private static Set<String> usedIds = new HashSet<>();
 
     @Override
     public Vehicle save(Vehicle vehicle) {
-        vehicles.add(vehicle);
-        count++;
+        if(vehicle.getId() == null){
+            String userId = generateId();
+            vehicle.setId(userId);
+            vehicles.add(vehicle);
+        } else{
+            for(int index = 0; index < vehicles.size(); index++){
+                if(vehicles.get(index).getId().equals(vehicle.getId())){
+                    vehicles.set(index, vehicle);
+                }
+            }
+        }
         return vehicle;
     }
 
@@ -27,14 +38,24 @@ public class Vehicles implements VehicleRepositories{
     }
 
     @Override
-    public Vehicle findById(int id) {
+    public Vehicle findById(String id) {
         for(int count = 0; count < vehicles.size(); count++){
             Vehicle vehicle = vehicles.get(count);
-            if(vehicle.getId() == id){
+            if(vehicle.getId().equals(id)){
                 return vehicle;
             }
         }
         throw new IdNotFoundException("Vehicle with id " + id + " not found");
+    }
+
+    @Override
+    public Vehicle findByChasisNumber(String chasisNumber) {
+        for(Vehicle newVehicle : vehicles){
+            if(newVehicle.getChasisNumber().equals(chasisNumber)){
+                return newVehicle;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -48,10 +69,10 @@ public class Vehicles implements VehicleRepositories{
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(String id) {
         for(int count = 0; count < vehicles.size(); count++){
             Vehicle vehicle = vehicles.get(count);
-            if(vehicle.getId() == id){
+            if(vehicle.getId().equals(id)){
                 vehicles.remove(count);
                 return;
             }
@@ -78,6 +99,17 @@ public class Vehicles implements VehicleRepositories{
 
     @Override
     public long count() {
-        return count;
+        return vehicles.size();
+    }
+
+
+    private String generateId(){
+        String id;
+        do {
+            int number = random.nextInt(Integer.MAX_VALUE);
+            id = "Veh" + number;
+        } while (usedIds.contains(id));
+        usedIds.add(id);
+        return id;
     }
 }
