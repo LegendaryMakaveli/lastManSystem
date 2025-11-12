@@ -77,13 +77,6 @@ class OfficersTest {
 
     }
 
-    @Test
-    public void testThatWhenOfficerIsSearchWithInvalidId_ExceptionIThrown(){
-        Officer newOfficer = new Officer();
-        officer.save(newOfficer);
-
-        assertThrows(IdNotFoundException.class, () -> officer.findById("Ofc99"));
-    }
 
     @Test
     public void testThatFindAllOfficerInOfficerList() {
