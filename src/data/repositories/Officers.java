@@ -35,7 +35,7 @@ public class Officers implements OfficerRepositories{
                 return officer;
             }
         }
-        throw new IdNotFoundException("Id not found");
+        return null;
     }
 
     @Override
