@@ -2,6 +2,7 @@ package data.repositories;
 
 import data.models.Officer;
 import exceptions.IdNotFoundException;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,6 +17,12 @@ class OfficersTest {
     void setUp() {
         officer = new Officers();
     }
+
+    @AfterEach
+    void tearDown() {
+        officer.deleteAll();
+    }
+
 
     @Test
     public void testThatOfficerIsEmpty() {
