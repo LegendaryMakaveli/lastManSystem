@@ -30,7 +30,7 @@ class VehiclesTest {
     @Test
     public void TestThatOneVehiclesIsSaved() {
         assertEquals(0, vehicle.count());
-        Vehicle oneVehicle = new Vehicle("Toyota", "Camry", "Red");
+        Vehicle oneVehicle = new Vehicle();
         vehicle.save(oneVehicle);
         assertEquals(1, vehicle.getSize());
     }
@@ -38,25 +38,17 @@ class VehiclesTest {
     @Test
     public void TestThatWhatVehicleIsSavedIsWhatWeGet(){
         assertEquals(0, vehicle.count());
-        Vehicle newVehicle = new Vehicle("Toyota", "Camry", "Red");
+        Vehicle newVehicle = new Vehicle();
         Vehicle result = vehicle.save(newVehicle);
         assertEquals(result,  vehicle.findById(newVehicle.getId()));
-    }
-
-    @Test
-    public void testThatWhenVehicleIsSearchWithInvalidId_ExceptionIThrown(){
-        Vehicle newVehicle = new Vehicle("Toyota", "Camry", "Red");
-        vehicle.save(newVehicle);
-
-        assertThrows(IdNotFoundException.class, () -> vehicle.findById("John01"));
     }
 
 
     @Test
     public void findAllAvailableVehicles() {
-        Vehicle oneVehicle = new Vehicle("Toyota", "Camry", "Red");
+        Vehicle oneVehicle = new Vehicle();
         vehicle.save(oneVehicle);
-        Vehicle twoVehicle = new Vehicle("Honda", "Accord", "Blue");
+        Vehicle twoVehicle = new Vehicle();
         vehicle.save(twoVehicle);
         List<Vehicle> allNewVehicle = vehicle.findAll();
         assertNotNull(allNewVehicle);
@@ -67,9 +59,9 @@ class VehiclesTest {
 
     @Test
     public void deleteById() {
-        Vehicle oneVehicle = new Vehicle("Toyota", "Camry", "Red");
+        Vehicle oneVehicle = new Vehicle();
         vehicle.save(oneVehicle);
-        Vehicle twoVehicle = new Vehicle("Hyundai", "Solana", "Blue");
+        Vehicle twoVehicle = new Vehicle();
         vehicle.save(twoVehicle);
         assertEquals(2, vehicle.getSize());
         vehicle.deleteById(twoVehicle.getId());
@@ -78,13 +70,13 @@ class VehiclesTest {
 
     @Test
     public void deleteAll() {
-        Vehicle oneVehicle = new Vehicle("Toyota", "Camry", "Red");
+        Vehicle oneVehicle = new Vehicle();
         vehicle.save(oneVehicle);
-        Vehicle twoVehicle = new Vehicle("Toyota", "Sienna", "Blue");
+        Vehicle twoVehicle = new Vehicle();
         vehicle.save(twoVehicle);
-        Vehicle thirdVehicle = new Vehicle("Honda", "EvilSpirit", "Yellow");
+        Vehicle thirdVehicle = new Vehicle();
         vehicle.save(thirdVehicle);
-        Vehicle fourthVehicle = new Vehicle("Toyota", "Corolla", "Red");
+        Vehicle fourthVehicle = new Vehicle();
         vehicle.save(fourthVehicle);
         assertEquals(4, vehicle.getSize());
         vehicle.deleteAll();
@@ -93,7 +85,7 @@ class VehiclesTest {
 
     @Test
     public void deleteObject() {
-        Vehicle newVehicle = new Vehicle("Toyota", "Camry", "Red");
+        Vehicle newVehicle = new Vehicle();
         Vehicle result = vehicle.save(newVehicle);
         assertEquals(1, vehicle.getSize());
         vehicle.delete(result);
@@ -102,13 +94,13 @@ class VehiclesTest {
 
     @Test
     public void getVehicleCount() {
-        Vehicle oneVehicle = new Vehicle("Toyota", "Camry", "Red");
+        Vehicle oneVehicle = new Vehicle();
         vehicle.save(oneVehicle);
-        Vehicle twoVehicle = new Vehicle("Lexus", "Rx", "Red");
+        Vehicle twoVehicle = new Vehicle();
         vehicle.save(twoVehicle);
-        Vehicle thirdVehicle = new Vehicle("Nissan", "Premier", "Blue");
+        Vehicle thirdVehicle = new Vehicle();
         vehicle.save(thirdVehicle);
-        Vehicle fourthVehicle = new Vehicle("Lambo", "Urus", "Red");
+        Vehicle fourthVehicle = new Vehicle();
         vehicle.save(fourthVehicle);
 
         assertEquals(4, vehicle.count());

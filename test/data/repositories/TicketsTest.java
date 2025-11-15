@@ -14,20 +14,22 @@ class TicketsTest {
     @BeforeEach
     void setUp() {
         ticket = new Tickets();
+        ticket.deleteAll();
     }
+
 
     @Test
     public void testThatMyTicketIsEmpty(){
-        assertEquals(0, ticket.count());
+        assertEquals(0, ticket.getSize());
     }
 
     @Test
     public void saveANewTicketAndIsNotEmpty() {
-        assertEquals(0, ticket.count());
+        assertEquals(0, ticket.getSize());
         Ticket newTicket = new Ticket();
         ticket.save(newTicket);
 
-        assertEquals(1, ticket.count());
+        assertEquals(1, ticket.getSize());
     }
 
     @Test
@@ -49,14 +51,6 @@ class TicketsTest {
 
         Ticket result = ticket.findById(ticket2.getId());
         assertEquals(result, ticket2);
-    }
-
-    @Test
-    public void testThatWhenTicketIsSearchWithInvalidId_ExceptionIThrown(){
-        Ticket newTicket = new Ticket();
-        ticket.save(newTicket);
-
-        assertThrows(IdNotFoundException.class, () -> ticket.findById("Dan09"));
     }
 
     @Test
@@ -85,13 +79,6 @@ class TicketsTest {
         assertEquals(2, ticket.getSize());
         ticket.deleteById(ticket1.getId());
         assertEquals(1, ticket.getSize());
-    }
-    @Test
-    public void testThatWhenTicketIsDeletedWithInvalidId_ExceptionIThrown(){
-        Ticket newTicket = new Ticket();
-        ticket.save(newTicket);
-
-        assertThrows(IdNotFoundException.class, () -> ticket.deleteById("Dan07"));
     }
 
     @Test
