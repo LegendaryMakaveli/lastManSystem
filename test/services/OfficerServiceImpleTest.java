@@ -7,8 +7,6 @@ import data.repositories.TicketRepositories;
 import data.repositories.Tickets;
 import dtos.requests.BookTicketRequest;
 import dtos.requests.RegisterOfficerRequest;
-import dtos.responses.BookTicketResponse;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,17 +16,18 @@ class OfficerServiceImpleTest {
     private OfficerService officerService;
     private OfficerRepositories officers;
     private TicketRepositories tickets;
+    private TicketsService ticketsService;
 
     @BeforeEach
     void setUp() {
         officerService = new OfficerServiceImple();
+        ticketsService = new TicketServiceImple();
         officers = new Officers();
         tickets = new Tickets();
-    }
 
-    @AfterEach
-    void tearDown() {
+
         officers.deleteAll();
+        tickets.deleteAll();
     }
 
     @Test
@@ -56,18 +55,19 @@ class OfficerServiceImpleTest {
     @Test
     public void testThatRegisterOfficerCanBookTicket() {
         RegisterOfficerRequest newOfficer = new RegisterOfficerRequest();
-        newOfficer.setId(newOfficer.getId());
         officerService.registerOfficer(newOfficer);
 
-        BookTicketRequest giveATicket = new BookTicketRequest();
-        giveATicket.setOffenderVehicleName(giveATicket.getOffenderVehicleName());
-        giveATicket.setOffenderVehicleModel(giveATicket.getOffenderVehicleModel());
-        giveATicket.setOffenderVehicleyear(giveATicket.getOffenderVehicleyear());
-        giveATicket.setOffenderVehicleChasisNumber(giveATicket.getOffenderVehicleChasisNumber());
-        giveATicket.setOffense(Offense.OVER_SPEEDING);
+        BookTicketRequest giveTicket = new BookTicketRequest();
+        giveTicket.setIssuerOfficerId(newOfficer.getId());
+        giveTicket.setOffenderVehicleName(giveTicket.getOffenderVehicleName());
+        giveTicket.setOffenderVehicleModel(giveTicket.getOffenderVehicleModel());
+        giveTicket.setOffenderVehicleyear(giveTicket.getOffenderVehicleyear());
+        giveTicket.setOffenderVehicleChasisNumber(giveTicket.getOffenderVehicleChasisNumber());
+        giveTicket.setOffense(Offense.OVER_SPEEDING);
 
-        officerService.bookTicket(giveATicket);
+        ticketsService.bookTicket(giveTicket);
 
         assertEquals(1, tickets.getSize());
     }
+
 }
