@@ -26,10 +26,7 @@ public class Vehicle {
         this.chasisNumber = chasisNumber;
     }
 
-    public Vehicle(String name, String model, String colour) {
-        this.name = name;
-        this.model = model;
-        this.colour = colour;
+    public Vehicle() {
         tickets = new ArrayList<>();
     }
 

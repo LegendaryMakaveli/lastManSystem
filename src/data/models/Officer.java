@@ -7,6 +7,9 @@ public class Officer {
 
 public Officer(){}
 
+    
+    
+    
     public String getId() {
         return id;
     }
@@ -30,4 +33,19 @@ public Officer(){}
     public void setRank(String rank) {
         this.rank = rank;
     }
+
+
+
+
+
+
+//    private String generateId(){
+//        String id;
+//        do {
+//            int number = random.nextInt(Integer.MAX_VALUE);
+//            id = "Ofc" + number;
+//        } while (usedIds.contains(id));
+//        usedIds.add(id);
+//        return id;
+//    }
 }
