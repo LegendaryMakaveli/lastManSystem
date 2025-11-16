@@ -11,7 +11,12 @@ import static utils.OfficerMapper.map;
 
 
 public class OfficerServiceImple implements  OfficerService {
-    private OfficerRepositories officers = new Officers();
+    private OfficerRepositories officers;
+
+    public OfficerServiceImple(OfficerRepositories officers) {
+        this.officers = officers;
+
+    }
 
     @Override
     public RegisterOfficerResponse registerOfficer(RegisterOfficerRequest request) {
