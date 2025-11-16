@@ -7,7 +7,7 @@ import dtos.requests.RegisterVehicleRequest;
 public class Mapper {
 
     public static Vehicle map(RegisterVehicleRequest request){
-        Vehicle vehicle = new Vehicle("Toyota", "Camry", "black");
+        Vehicle vehicle = new Vehicle();
         vehicle.setName(request.getVehicleName());
         vehicle.setColour(request.getVehicleColour());
         vehicle.setModel(request.getVehicleModel());
