@@ -1,30 +1,30 @@
 package data.repositories;
 
 import data.models.Ticket;
-import exceptions.IdNotFoundException;
-import exceptions.InvalidObject;
 
 import java.util.*;
 
 public class Tickets implements TicketRepositories {
     private static Random random = new Random();
     private static  Set<String> usedIds = new HashSet<>();
-    private List<Ticket> tickets = new ArrayList<>();
+    private static List<Ticket> tickets = new ArrayList<>();
 
     @Override
     public Ticket save(Ticket ticket) {
         if(ticket.getId() == null){
-            String id = generateId();
-            ticket.setId(id);
+            ticket.setId(generateId());
             tickets.add(ticket);
+            return ticket;
+
         }else{
             for(int index = 0; index < tickets.size(); index++){
                 if(tickets.get(index).getId().equals(ticket.getId())){
                     tickets.set(index, ticket);
+                    return ticket;
                 }
             }
         }
-        return ticket;
+        return null;
     }
 
 
@@ -33,11 +33,11 @@ public class Tickets implements TicketRepositories {
     public Ticket findById(String id) {
         for(int count = 0; count < tickets.size(); count++){
             Ticket ticket = tickets.get(count);
-            if(ticket.getId() == id){
+            if(ticket.getId() != null && ticket.getId().equals(id)){
                 return ticket;
             }
         }
-        throw new IdNotFoundException("Ticket with id " + id + " not found");
+        return null;
     }
 
     @Override
@@ -58,7 +58,6 @@ public class Tickets implements TicketRepositories {
                 return;
             }
         }
-        throw new IdNotFoundException("Ticket with id " + id + " not found");
     }
 
     @Override
@@ -80,7 +79,7 @@ public class Tickets implements TicketRepositories {
                 return ticket1;
             }
         }
-        throw new InvalidObject("Not found");
+        return null;
     }
 
     @Override
