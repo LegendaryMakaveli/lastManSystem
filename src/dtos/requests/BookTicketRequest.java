@@ -9,7 +9,26 @@ public class BookTicketRequest {
     private Year offenderVehicleyear;
     private String offenderVehicleChasisNumber;
     private String IssuerOfficerId;
+
+    public boolean getHasPaid() {
+        return hasPaid;
+    }
+
+    public void setHasPaid(boolean hasPaid) {
+        this.hasPaid = hasPaid;
+    }
+
+    private String ticketId;
+    private boolean hasPaid;
     private Offense offense;
+
+    public String getTicketId() {
+        return ticketId;
+    }
+
+    public void setTicketId(String ticketId) {
+        this.ticketId = ticketId;
+    }
 
     public String getIssuerOfficerId() {
         return IssuerOfficerId;
