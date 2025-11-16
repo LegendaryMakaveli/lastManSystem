@@ -11,23 +11,25 @@ public class OfficerMapper {
     public static Officer map(RegisterOfficerRequest request) {
         Officer newOfficer = new Officer();
         newOfficer.setName(request.getName());
-        newOfficer.setId(request.getId());
         newOfficer.setRank(request.getRank());
         return newOfficer;
     }
 
 
     public static Ticket mapTicket(BookTicketRequest request) {
-        Ticket newTicket = new Ticket();
-        Vehicle vehicle = new Vehicle("Toyota", "Camry", "Black");
+        Vehicle vehicle = new Vehicle();
+
         vehicle.setName(request.getOffenderVehicleName());
         vehicle.setModel(request.getOffenderVehicleModel());
         vehicle.setYear(request.getOffenderVehicleyear());
         vehicle.setChasisNumber(request.getOffenderVehicleChasisNumber());
 
-        Officer newOfficer = new Officer();
-        newOfficer.setId(request.getIssuerOfficerId());
+        Ticket newTicket = new Ticket();
+
         newTicket.setVehicle(vehicle);
+        newTicket.setId(request.getTicketId());
+        newTicket.setHasPaid();
+        newTicket.setOffense(request.getOffense());
 
         return newTicket;
     }
