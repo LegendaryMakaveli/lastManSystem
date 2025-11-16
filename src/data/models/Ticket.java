@@ -63,11 +63,11 @@ public class Ticket {
         this.offense = offense;
     }
 
-    public boolean isHasPaid() {
+    public boolean getHasPaid() {
         return hasPaid;
     }
 
-    public void setHasPaid(boolean hasPaid) {
-        this.hasPaid = hasPaid;
+    public void setHasPaid() {
+        hasPaid = true;
     }
 }
