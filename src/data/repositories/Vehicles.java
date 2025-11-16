@@ -1,9 +1,6 @@
 package data.repositories;
 
 import data.models.Vehicle;
-import dtos.requests.RegisterVehicleRequest;
-import exceptions.IdNotFoundException;
-import exceptions.VehicleNotFoundException;
 
 import java.util.*;
 
@@ -15,17 +12,18 @@ public class Vehicles implements VehicleRepositories{
     @Override
     public Vehicle save(Vehicle vehicle) {
         if(vehicle.getId() == null){
-            String userId = generateId();
-            vehicle.setId(userId);
+            vehicle.setId(generateId());
             vehicles.add(vehicle);
+            return vehicle;
         } else{
             for(int index = 0; index < vehicles.size(); index++){
                 if(vehicles.get(index).getId().equals(vehicle.getId())){
                     vehicles.set(index, vehicle);
+                    return vehicle;
                 }
             }
         }
-        return vehicle;
+        return null;
     }
 
     @Override
@@ -45,7 +43,7 @@ public class Vehicles implements VehicleRepositories{
                 return vehicle;
             }
         }
-        throw new IdNotFoundException("Vehicle with id " + id + " not found");
+        return null;
     }
 
     @Override
@@ -77,7 +75,6 @@ public class Vehicles implements VehicleRepositories{
                 return;
             }
         }
-        throw new IdNotFoundException("Vehicle with id " + id + " not found");
     }
 
     @Override
