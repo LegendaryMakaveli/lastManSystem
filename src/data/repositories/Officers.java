@@ -14,24 +14,25 @@ public class Officers implements OfficerRepositories{
     @Override
     public Officer save(Officer officer) {
         if(officer.getId() == null){
-            String officerId = generateId();
-            officer.setId(officerId);
+            officer.setId(generateId());
             officers.add(officer);
+            return officer;
         }else {
             for(int index = 0; index < officers.size(); index++){
                 if(officers.get(index).getId().equals(officer.getId())){
                     officers.set(index, officer);
+                    return officer;
                 }
             }
         }
-        return officer;
+        return null;
     }
 
     @Override
     public Officer findById(String id) {
         for(int count = 0; count < officers.size(); count++) {
             Officer officer = officers.get(count);
-            if (officer.getId() == id) {
+            if (officer.getId() !=  null && officer.getId().equals(id)) {
                 return officer;
             }
         }
