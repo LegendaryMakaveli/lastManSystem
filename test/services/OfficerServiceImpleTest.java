@@ -56,6 +56,15 @@ class OfficerServiceImpleTest {
     }
 
     @Test
+    public void registerOneOfficerTwiceAndCountIsOne() {
+        RegisterOfficerRequest newOfficer = new  RegisterOfficerRequest();
+        newOfficer.setId(newOfficer.getId());
+        officerService.registerOfficer(newOfficer);
+
+        assertThrows(LastManException.class, () -> officerService.registerOfficer(newOfficer));
+    }
+
+    @Test
     public void testThatRegisterOfficerCanBookTicket() {
         RegisterOfficerRequest newOfficer = new RegisterOfficerRequest();
         officerService.registerOfficer(newOfficer);
@@ -121,27 +130,6 @@ class OfficerServiceImpleTest {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     private static BookTicketRequest getBookTicketRequest(RegisterOfficerRequest newOfficer) {
         BookTicketRequest giveTicket = new BookTicketRequest();
         giveTicket.setIssuerOfficerId(newOfficer.getId());
@@ -153,6 +141,4 @@ class OfficerServiceImpleTest {
 
         return giveTicket;
     }
-
-
 }
