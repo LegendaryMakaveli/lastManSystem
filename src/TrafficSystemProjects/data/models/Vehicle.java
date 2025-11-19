@@ -2,6 +2,7 @@ package TrafficSystemProjects.data.models;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Year;
@@ -17,6 +18,7 @@ public class Vehicle {
     private Year year;
     private String chasisNumber;
     private String plateNumber;
+    @DBRef
     private Owner owner;
     private String registrationDate;
     private List<Ticket> tickets;

@@ -87,7 +87,7 @@ public class TicketServiceImple implements TicketsService{
     @Override
     public List<ViewAllVehicleTicketsResponse> viewTicketsByVehicleId(String vehicleId) {
         List<Ticket> ticketList = tickets.findByVehicleId(vehicleId);
-        if(ticketList == null || ticketList.isEmpty()) throw new TicketNotFoundException("No tickets found for this vehicle");
+        if(ticketList == null) throw new TicketNotFoundException("No tickets found for this vehicle");
         List<ViewAllVehicleTicketsResponse> responseList = new ArrayList<>();
 
         for (Ticket ticket : ticketList) {

@@ -7,8 +7,6 @@ import TrafficSystemProjects.data.models.Ticket;
 import TrafficSystemProjects.dtos.requests.*;
 import TrafficSystemProjects.dtos.responses.*;
 
-import javax.swing.text.DateFormatter;
-import java.text.DateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -162,7 +160,6 @@ public class Mapper {
         response.setOwnerName(owner.getFullName());
 
         response.setHasPaid(ticket.isHasPaid() ? "Yes" : "No");
-        response.
 
         return response;
     }
