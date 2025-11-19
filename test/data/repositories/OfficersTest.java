@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -70,8 +71,8 @@ class OfficersTest {
         officer.save(newOfficer);
         Officer secondOfficer = new  Officer();
         officer.save(secondOfficer);
-        Officer result = officer.findById(newOfficer.getId());
-        Officer result2 = officer.findById(secondOfficer.getId());
+        Optional<Officer> result = officer.findById(newOfficer.getId());
+        Optional<Officer> result2 = officer.findById(secondOfficer.getId());
 
         assertEquals(newOfficer, result);
         assertEquals(secondOfficer, result2);

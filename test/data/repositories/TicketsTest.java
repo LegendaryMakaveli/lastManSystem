@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -49,7 +50,7 @@ class TicketsTest {
         Ticket ticket2 = new Ticket();
         ticket.save(ticket2);
 
-        Ticket result = ticket.findById(ticket2.getId());
+        Optional<Ticket> result = ticket.findById(ticket2.getId());
         assertEquals(result, ticket2);
     }
 
