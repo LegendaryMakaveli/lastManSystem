@@ -7,7 +7,10 @@ import data.repositories.TicketRepositories;
 import data.repositories.Tickets;
 import dtos.requests.BookTicketRequest;
 import dtos.requests.RegisterOfficerRequest;
-import dtos.responses.BookTicketResponse;
+import dtos.requests.SettleTicketRequest;
+import dtos.requests.ViewTicketRequest;
+import dtos.responses.SettleTicketResponse;
+import dtos.responses.ViewTicketResponse;
 import exceptions.LastManException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,6 +40,8 @@ class OfficerServiceImpleTest {
     public void registerOneOfficerAndCountIsOne() {
         RegisterOfficerRequest newOfficer = new  RegisterOfficerRequest();
         newOfficer.setId(newOfficer.getId());
+        newOfficer.setName("John");
+        newOfficer.setRank("Inspector");
         officerService.registerOfficer(newOfficer);
 
         assertEquals(1, officers.getSize());
@@ -46,10 +51,14 @@ class OfficerServiceImpleTest {
     public void registerTwoOfficersAndCountIsTwo() {
         RegisterOfficerRequest newOfficer = new  RegisterOfficerRequest();
         newOfficer.setId(newOfficer.getId());
+        newOfficer.setName("John");
+        newOfficer.setRank("Inspector");
         officerService.registerOfficer(newOfficer);
 
         RegisterOfficerRequest newOfficer2 = new  RegisterOfficerRequest();
         newOfficer2.setId(newOfficer2.getId());
+        newOfficer2.setName("JohnDan");
+        newOfficer2.setRank("Sergent");
         officerService.registerOfficer(newOfficer2);
 
         assertEquals(2, officers.getSize());
@@ -59,6 +68,8 @@ class OfficerServiceImpleTest {
     public void registerOneOfficerTwiceAndCountIsOne() {
         RegisterOfficerRequest newOfficer = new  RegisterOfficerRequest();
         newOfficer.setId(newOfficer.getId());
+        newOfficer.setName("John");
+        newOfficer.setRank("Inspector");
         officerService.registerOfficer(newOfficer);
 
         assertThrows(LastManException.class, () -> officerService.registerOfficer(newOfficer));
@@ -67,6 +78,9 @@ class OfficerServiceImpleTest {
     @Test
     public void testThatRegisterOfficerCanBookTicket() {
         RegisterOfficerRequest newOfficer = new RegisterOfficerRequest();
+        newOfficer.setId(newOfficer.getId());
+        newOfficer.setName("John");
+        newOfficer.setRank("Inspector");
         officerService.registerOfficer(newOfficer);
 
         BookTicketRequest giveTicket = getBookTicketRequest(newOfficer);
@@ -78,29 +92,40 @@ class OfficerServiceImpleTest {
     @Test
     public void testOfficerCanViewOwnTicket() {
         RegisterOfficerRequest newOfficer = new RegisterOfficerRequest();
+        newOfficer.setId(newOfficer.getId());
+        newOfficer.setName("John");
+        newOfficer.setRank("Inspector");
         officerService.registerOfficer(newOfficer);
+
         BookTicketRequest giveTicket = getBookTicketRequest(newOfficer);
         ticketsService.bookTicket(giveTicket);
 
-        BookTicketRequest viewRequest = new BookTicketRequest();
+        ViewTicketRequest viewRequest = new ViewTicketRequest();
         viewRequest.setIssuerOfficerId(newOfficer.getId());
         viewRequest.setTicketId(giveTicket.getTicketId());
 
-        BookTicketResponse newOfficerView = ticketsService.viewBookedTicket(viewRequest);
+        ViewTicketResponse newOfficerView = ticketsService.viewBookedTicket(viewRequest);
         assertNotNull(newOfficerView);
     }
 
     @Test
     public void testOfficerCannotViewAnotherOfficersTicket() {
         RegisterOfficerRequest newOfficer = new RegisterOfficerRequest();
+        newOfficer.setId(newOfficer.getId());
+        newOfficer.setName("John");
+        newOfficer.setRank("Inspector");
         officerService.registerOfficer(newOfficer);
+
         RegisterOfficerRequest newOfficerTwo = new RegisterOfficerRequest();
+        newOfficerTwo.setId(newOfficerTwo.getId());
+        newOfficerTwo.setName("Daniel");
+        newOfficerTwo.setRank("Inspector");
         officerService.registerOfficer(newOfficerTwo);
 
         BookTicketRequest giveTicket = getBookTicketRequest(newOfficer);
         ticketsService.bookTicket(giveTicket);
 
-        BookTicketRequest viewRequest = new BookTicketRequest();
+        ViewTicketRequest viewRequest = new ViewTicketRequest();
         viewRequest.setIssuerOfficerId(newOfficerTwo.getId());
         viewRequest.setTicketId(giveTicket.getTicketId());
 
@@ -112,17 +137,20 @@ class OfficerServiceImpleTest {
     @Test
     public void testThatOfficerCanBeRegister_BookTicket_ViewTicket_AndBeAbleToSettleTicket(){
         RegisterOfficerRequest newOfficer = new RegisterOfficerRequest();
+        newOfficer.setId(newOfficer.getId());
+        newOfficer.setName("John");
+        newOfficer.setRank("Inspector");
         officerService.registerOfficer(newOfficer);
 
         BookTicketRequest giveTicket = getBookTicketRequest(newOfficer);
         ticketsService.bookTicket(giveTicket);
 
-        BookTicketRequest settleTicketRequest = new BookTicketRequest();
+        SettleTicketRequest settleTicketRequest = new SettleTicketRequest();
         settleTicketRequest.setTicketId(giveTicket.getTicketId());
         settleTicketRequest.setHasPaid(true);
         settleTicketRequest.setIssuerOfficerId(newOfficer.getId());
 
-        BookTicketResponse settleTicketResponse = ticketsService.settleTicket(settleTicketRequest);
+        SettleTicketResponse settleTicketResponse = ticketsService.settleTicket(settleTicketRequest);
         assertNotNull(settleTicketResponse);
     }
 
