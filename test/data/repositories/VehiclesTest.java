@@ -1,7 +1,7 @@
 package data.repositories;
 
-import data.models.Vehicle;
-import exceptions.IdNotFoundException;
+import TrafficSystemProjects.data.models.Vehicle;
+import TrafficSystemProjects.data.repositories.VehicleRepositories;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

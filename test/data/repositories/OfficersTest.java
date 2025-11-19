@@ -1,7 +1,8 @@
 package data.repositories;
 
-import data.models.Officer;
-import exceptions.IdNotFoundException;
+import TrafficSystemProjects.data.models.Officer;
+import TrafficSystemProjects.data.repositories.OfficerRepositories;
+import TrafficSystemProjects.exceptions.IdNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

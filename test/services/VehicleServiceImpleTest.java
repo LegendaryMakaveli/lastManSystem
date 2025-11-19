@@ -1,8 +1,9 @@
 package services;
 
-import data.repositories.VehicleRepositories;
-import data.repositories.Vehicles;
-import dtos.requests.RegisterVehicleRequest;
+import TrafficSystemProjects.data.repositories.VehicleRepositories;
+import TrafficSystemProjects.dtos.requests.RegisterVehicleRequest;
+import TrafficSystemProjects.services.VehicleService;
+import TrafficSystemProjects.services.VehicleServiceImple;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,8 +16,7 @@ class VehicleServiceImpleTest {
 
     @BeforeEach
     void setUp() {
-        service = new VehicleServiceImple();
-        vehicles = new Vehicles();
+        service = new VehicleServiceImple(vehicles);
     }
 
     @AfterEach
