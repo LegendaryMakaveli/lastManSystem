@@ -47,7 +47,7 @@ public class TicketServiceImple implements TicketsService{
     @Override
     public BookTicketResponse bookTicket(BookTicketRequest request) {
         Optional<Officer> officer = officers.findById(request.getIssuerOfficerId());
-        if (officer == null) throw new LastManException("Officer does not exist");
+        if (officer.isEmpty()) throw new LastManException("Officer does not exist");
         ticket.setOfficer(officer.get());
 
         Ticket newTicket = mapToBookTicket(request);
@@ -60,7 +60,7 @@ public class TicketServiceImple implements TicketsService{
     @Override
     public ViewTicketResponse viewBookedTicket(ViewTicketRequest request) {
         Optional<Officer> officer = officers.findById(request.getIssuerOfficerId());
-        if (officer == null) throw new LastManException("Officer does not exist");
+        if (officer.isEmpty()) throw new LastManException("Officer does not exist");
 
         Ticket newTicket = mapToViewTicket(request);
         tickets.findById(newTicket.getId());
@@ -73,7 +73,7 @@ public class TicketServiceImple implements TicketsService{
     @Override
     public SettleTicketResponse settleTicket(SettleTicketRequest request) {
         Optional<Officer> officer = officers.findById(request.getIssuerOfficerId());
-        if (officer == null) throw new LastManException("Officer does not exist");
+        if (officer.isEmpty()) throw new LastManException("Officer does not exist");
 
 
         Ticket newTicket = mapToSettleTicket(request);
