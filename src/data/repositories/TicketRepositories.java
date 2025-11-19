@@ -7,6 +7,7 @@ public interface TicketRepositories {
     Ticket save(Ticket ticket);
     Ticket findById(String id);
     List<Ticket> findAll();
+    List<Ticket> findByVehicleId(String vehicleId);
     void deleteById(String id);
     int getSize();
     void deleteAll();

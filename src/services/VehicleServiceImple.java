@@ -7,6 +7,7 @@ import dtos.responses.RegisterVehicleResponse;
 import exceptions.VehicleNotFoundException;
 
 import static utils.Mapper.map;
+import static utils.Mapper.mapToVehicleResponse;
 
 public class VehicleServiceImple implements VehicleService{
     private VehicleRepositories vehicles = new Vehicles();
@@ -16,8 +17,8 @@ public class VehicleServiceImple implements VehicleService{
     public RegisterVehicleResponse registerVehicle(RegisterVehicleRequest request) {
         if(vehicles.findByChasisNumber(request.getVehicleChasisNumber()) != null) throw new VehicleNotFoundException("Vehicle already exists");
         Vehicle vehicle = map(request);
-        vehicles.save(vehicle);
+        Vehicle savedVehicle = vehicles.save(vehicle);
 
-        return new RegisterVehicleResponse();
+        return mapToVehicleResponse(savedVehicle);
     }
 }

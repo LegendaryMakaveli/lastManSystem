@@ -2,11 +2,12 @@ package services;
 
 import data.models.Officer;
 import data.repositories.OfficerRepositories;
-import data.repositories.Officers;
 import dtos.requests.RegisterOfficerRequest;
 import dtos.responses.RegisterOfficerResponse;
 import exceptions.LastManException;
-import static utils.OfficerMapper.map;
+
+import static utils.Mapper.mapToOfficerResponse;
+import static utils.Mapper.mapToRegisterOfficer;
 
 
 
@@ -18,13 +19,17 @@ public class OfficerServiceImple implements  OfficerService {
 
     }
 
+    public OfficerServiceImple(){
+        this.officers = officers;
+    }
+
     @Override
     public RegisterOfficerResponse registerOfficer(RegisterOfficerRequest request) {
         if(officers.findById(request.getId()) != null) throw new LastManException("Officer already exists");
-        Officer newOfficer = map(request);
+        Officer newOfficer = mapToRegisterOfficer(request);
         Officer savedOfficer = officers.save(newOfficer);
         request.setId(savedOfficer.getId());
 
-        return new  RegisterOfficerResponse();
+        return mapToOfficerResponse(savedOfficer);
     }
 }

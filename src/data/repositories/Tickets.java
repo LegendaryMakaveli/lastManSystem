@@ -61,6 +61,20 @@ public class Tickets implements TicketRepositories {
     }
 
     @Override
+    public List<Ticket> findByVehicleId(String vehicleId) {
+        List<Ticket> result = new ArrayList<>();
+
+        for (Ticket ticket : tickets) {
+            if (ticket.getVehicle().getId().equals(vehicleId)) {
+                result.add(ticket);
+            }
+        }
+        return result;
+    }
+
+
+
+    @Override
     public int getSize() {
         return tickets.size();
     }
