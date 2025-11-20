@@ -2,10 +2,9 @@ package TrafficSystemProjects.data.models;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.Year;
+import java.time.LocalDateTime;
 import java.util.List;
 @Data
 @Document(collection = "Vehicles")
@@ -15,11 +14,10 @@ public class Vehicle {
     private String name;
     private String model;
     private String colour;
-    private Year year;
+    private String year;
     private String chasisNumber;
     private String plateNumber;
-    @DBRef
     private Owner owner;
-    private String registrationDate;
+    private LocalDateTime registrationDate;
     private List<Ticket> tickets;
 }

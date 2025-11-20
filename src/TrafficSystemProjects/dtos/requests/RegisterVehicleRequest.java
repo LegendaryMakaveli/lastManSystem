@@ -3,6 +3,7 @@ package TrafficSystemProjects.dtos.requests;
 import TrafficSystemProjects.data.models.Gender;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.time.Year;
 
 @Data
@@ -11,10 +12,9 @@ public class RegisterVehicleRequest {
     private String vehicleModel;
     private String vehicleColour;
     private String vehicleChasisNumber;
-    private Year productionYear;
+    private String productionYear;
     private String ownerFullName;
     private String ownerAddress;
     private String ownerPhoneNumber;
     private Gender ownerGender;
-    private String registrationDate;
 }

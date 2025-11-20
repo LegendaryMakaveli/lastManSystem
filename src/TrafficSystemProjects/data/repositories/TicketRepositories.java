@@ -12,7 +12,6 @@ public interface TicketRepositories extends MongoRepository<Ticket,String> {
     List<Ticket> findAll();
     List<Ticket> findByVehicleId(String vehicleId);
     void deleteById(String id);
-    int getSize();
     void deleteAll();
     void delete(Ticket ticket);
     long count();

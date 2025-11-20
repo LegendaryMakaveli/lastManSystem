@@ -10,7 +10,6 @@ public interface OfficerRepositories extends MongoRepository<Officer, String> {
     Optional<Officer> findById(String id);
     List<Officer> findAll();
     void deleteById(String id);
-    int getSize();
     void deleteAll();
     void delete(Officer officer);
     long count();

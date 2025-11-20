@@ -16,7 +16,10 @@ import TrafficSystemProjects.exceptions.LastManException;
 
 import TrafficSystemProjects.data.models.Offense;
 import TrafficSystemProjects.exceptions.TicketNotFoundException;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,24 +27,17 @@ import java.util.Optional;
 
 import static TrafficSystemProjects.utils.Mapper.*;
 
-
+@NoArgsConstructor
+@AllArgsConstructor
+@Service
 public class TicketServiceImple implements TicketsService{
+    @Autowired
     private OfficerRepositories officers;
+    @Autowired
     private TicketRepositories tickets;
+
     private Ticket  ticket = new Ticket();
     private Offense offense;
-
-    @Autowired
-    public TicketServiceImple(OfficerRepositories officers, TicketRepositories tickets) {
-        this.officers = officers;
-        this.tickets = tickets;
-    }
-
-    @Autowired
-    public TicketServiceImple(){
-        this.officers = officers;
-        this.tickets = tickets;
-    }
 
 
     @Override

@@ -7,27 +7,33 @@ import TrafficSystemProjects.dtos.responses.BookTicketResponse;
 import TrafficSystemProjects.dtos.responses.SettleTicketResponse;
 import TrafficSystemProjects.dtos.responses.ViewAllVehicleTicketsResponse;
 import TrafficSystemProjects.dtos.responses.ViewTicketResponse;
-import TrafficSystemProjects.services.TicketServiceImple;
 import TrafficSystemProjects.services.TicketsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@RestController
 public class TicketController {
-    private TicketsService ticketsService = new TicketServiceImple();
+    @Autowired
+    private TicketsService ticketsService;
 
-    public BookTicketResponse bookTicket(BookTicketRequest request){
+    @PostMapping( "/tickets/bookTicket")
+    public BookTicketResponse bookTicket(@RequestBody BookTicketRequest request){
         return ticketsService.bookTicket(request);
     }
 
-    public ViewTicketResponse viewTicket(ViewTicketRequest request){
+    @GetMapping( "/tickets/viewTicket")
+    public ViewTicketResponse viewTicket(@PathVariable ViewTicketRequest request){
         return ticketsService.viewBookedTicket(request);
     }
 
+    @PostMapping( "/ tickets/settleTicket")
     public SettleTicketResponse settleTicket(SettleTicketRequest request){
         return ticketsService.settleTicket(request);
     }
 
-    public List<ViewAllVehicleTicketsResponse> viewVehicleTickets(String vehicleId){
+    @GetMapping( "/tickets/viewAllTicket")
+    public List<ViewAllVehicleTicketsResponse> viewVehicleTickets(@PathVariable String vehicleId){
         return ticketsService.viewTicketsByVehicleId(vehicleId);
     }
 }

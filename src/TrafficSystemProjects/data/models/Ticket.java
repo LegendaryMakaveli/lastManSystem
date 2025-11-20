@@ -13,9 +13,7 @@ public class Ticket {
     @Id
     private String id;
     private Vehicle vehicle;
-    @DBRef
     private Officer officer;
-    @DBRef
     private Offense offense;
     private boolean hasPaid;
     private double amount;

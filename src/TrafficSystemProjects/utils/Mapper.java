@@ -7,8 +7,6 @@ import TrafficSystemProjects.data.models.Ticket;
 import TrafficSystemProjects.dtos.requests.*;
 import TrafficSystemProjects.dtos.responses.*;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 
 public class Mapper {
@@ -19,7 +17,6 @@ public class Mapper {
         vehicle.setColour(request.getVehicleColour());
         vehicle.setModel(request.getVehicleModel());
         vehicle.setYear(request.getProductionYear());
-        vehicle.setRegistrationDate(request.getRegistrationDate());
         vehicle.setChasisNumber(request.getVehicleChasisNumber());
 
         Owner owner = new Owner();
@@ -37,12 +34,9 @@ public class Mapper {
         response.setVehicleId(vehicle.getId());
         Owner owner = vehicle.getOwner();
         response.setOwnerName(owner != null ? owner.getFullName() : "Unknown Owner");
-        String details = (vehicle.getName() + " " + vehicle.getColour() + " " + vehicle.getModel() + " " + vehicle.getYear()).trim();
+        String details = (vehicle.getName() + " " + vehicle.getModel() + " " + vehicle.getColour() +  " " + vehicle.getYear()).trim();
         response.setVehicleDetails(details);
-        LocalDateTime date = LocalDateTime.parse(vehicle.getRegistrationDate());
-        String formattedDate = DateTimeFormatter.ofPattern("EEE, yyyy/MM/dd, hh : mm a").format(date);
-        response.setRegistrationDate(formattedDate);
-
+        response.setRegistrationDate(vehicle.getRegistrationDate());
         return response;
     }
 
@@ -73,6 +67,7 @@ public class Mapper {
         Ticket newTicket = new Ticket();
 
         newTicket.setVehicle(vehicle);
+        newTicket.setId(request.getIssuerOfficerId());
         newTicket.setHasPaid(request.isHasPaid());
         newTicket.setOffense(request.getOffense());
 
@@ -85,8 +80,7 @@ public class Mapper {
         response.setAmount(ticket.getAmount());
         response.setIssuer(ticket.getOfficer());
         response.setOffense(ticket.getOffense());
-        response.setIssueDate(LocalDateTime.parse(DateTimeFormatter.ofPattern("EEE, yyy/mm/dd,  hh : mm, a").format(ticket.getDateOfBooking())));
-
+        response.setIssueDate(ticket.getDateOfBooking());
         return response;
     }
 
@@ -145,6 +139,7 @@ public class Mapper {
 
             response.setVehicleDetails(details.trim());
         }
+        response.setSettleDate(ticket.getDateOfPayment());
         return response;
     }
 
